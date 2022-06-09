@@ -1,10 +1,9 @@
 /**
  Von primitiven Datentypen wie int, float, boolean werden die Werte unmittelbar in den Variablen gespeichert.
 
- Bei Objekte wie Array, Bottle, ... wird ein "Wegweiser" (die Adresse) zu den Objekten
- in der Variable gespeichert -> Referenzvariable
+ Bei Objekte wie String, Array, Bottle,... wird ein "Wegweiser" (die Adresse) zu den Objekten in der Variable gespeichert -> Referenzvariable
 
- Wir haben das bereits auch in SEW1 beim Thema Array behandelt.
+Wir haben das bereits auch in SEW1 beim Thema Array behandelt.
 
  Bei Objekten (wie Array, Bottle, ...) ...
  - beginnt der Datentyp mit einem Großbuchstaben
@@ -17,52 +16,57 @@
  - werden Werte direkt gespeichert
  - bei Zuweisungen wird somit der Wert kopiert.
  - bei Methodenparametern werden Änderungen an einer lokalen Kopie vorgenommen.
- **/
+
+ Eine Referenzvariable kann statt auf ein Objekt auch "ins Nirgendwo" zeigen, in Java ist das die "Null"-Referenz. Attribute, die als Datentyp ein Objekt haben,
+werden automatisch mit null initialisiert.
 
 
 class Main {
     public static void main(String[] args) {
 
-        /*
+        /**
          Das Objekt, das mit "new" erzeugt wird hat selbst keinen Namen! Nur die Variable b, die auf dieses Objekt referenziert.
-         */
+         **/
         Bottle b = new Bottle();
 
-        /*
+        /**
          Mehrere Variablen können auf das GLEICHE Objekt zeigen.
          Die Variablen b und c zeigen jetzt auf das gleiche Objekt.
-         */
+         **/
         Bottle c = b;
 
-        /* Die Werte werden auf b gesetzt */
-        b.setVolume(500);
-        b.setCurrentLevel(200);
+  /** Die Werte werden auf b gesetzt... **/
+  b.setVolume(500);
+  b.setCurrentLevel(200);
 
-        /* und sind natürlich auch für c gültig, weil die Variablen auf das GLEICHE Objekt zeigen */
-        System.out.println(c); //Vol: 500, curLevel: 200
+  /** ...und sind natürlich auch für c gültig weil die Variablen auf das GLEICHE Objekt zeigen. **/
+  System.out.println(c); //Vol: 500, curLevel: 200
 
-        /* Es kann passieren, dass gar keine Referenzvariable mehr auf ein Objekt zeigt.
-        Dann kann dieses nicht mehr verwendet werden und wird gelöscht.
-        In Java macht das automatisch der "Garbage Collector".
-         */
+        /** Es kann passieren, dass gar keine Referenzvariable mehr auf ein Objekt zeigt. Dann kann dieses nicht mehr verwendet werden und wird gelöscht. In Java macht das automatisch der "Garbage Collector".
+         **/
 
-        /* Um eine Variable auf kein Objekt verweisen zu lassen wird die Konstante null zugewiesen. */
+        /** Um eine Variable auf kein Objekt verweisen zu lassen wird die Konstante null zugewiesen. **/
         b = null;
 
-        /* Vergleiche dazu das Verhalten bei primitiven Variablen */
-        int x = 5;
-        int y = x;  //Wert wird kopiert, nicht die Referenz
-        x = 2;  //hat keinen Einfluss auf y
-        System.out.println("x: "+x+ " y: "+y);
+  /** Das kann man auch überprüfen. **/
+  if (b==null) {
+    System.out.println("Die Variable b zeigt momentan auf null.");
+  }
 
-        /* Beachte, dass auch bei Methodenaufrufen bei Objekten die Referenz und bei primitiven Datentypen
+  /** Vergleiche dazu das Verhalten bei primitiven Variablen **/
+  int x = 5;
+  int y = x;  //Wert wird kopiert, nicht die Referenz
+  x = 2;  //hat keinen Einfluss auf y
+  System.out.println("x: "+x+ " y: "+y);
+
+  /* Beachte, dass auch bei Methodenaufrufen bei Objekten die Referenz und bei primitiven Datentypen
         der Wert übergeben wird */
         System.out.println("Vor dem Methodenaufruf: "+c);  //Vol: 500
-        changeValues(c);
-        System.out.println("Nach dem Methodenaufruf: "+c);  //Vol: 300
+  changeValues(c);
+  System.out.println("Nach dem Methodenaufruf: "+c);  //Vol: 300
 
-        float zahl = 45.2f;
-        System.out.println("Vor dem Methodenaufruf: "+zahl);  //zahl: 45.2
+  float zahl = 45.2f;
+  System.out.println("Vor dem Methodenaufruf: "+zahl);  //zahl: 45.2
         changeValues(zahl);
         System.out.println("Nach dem Methodenaufruf: "+zahl); //zahl: 45.2
 
@@ -80,8 +84,7 @@ class Main {
         b.setVolume(300);
     }
 
-    public static void changeValues(float f) {
-        f = 50;
-    }
-
+public static void changeValues(float f) {
+  f = 50;
+}
 }
